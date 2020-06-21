@@ -21,7 +21,7 @@ class HalfCheetahConfigModule:
     PLAN_HOR = 20
     # MODEL_IN, MODEL_OUT = 24, 18
     MODEL_IN = 26 + 6
-    MODEL_OUT = 26
+    MODEL_OUT = 27
     GP_NINDUCING_POINTS = 300
 
     def __init__(self):
@@ -52,7 +52,7 @@ class HalfCheetahConfigModule:
         #     return np.concatenate([obs[:, 1:2], np.sin(obs[:, 2:3]), np.cos(obs[:, 2:3]), obs[:, 3:]], axis=1)
         # else:
         #     return tf.concat([obs[:, 1:2], tf.sin(obs[:, 2:3]), tf.cos(obs[:, 2:3]), obs[:, 3:]], axis=1)
-        return obs
+        return obs[:, 1:]
 
     @staticmethod
     def obs_postproc(obs, pred):
@@ -60,17 +60,18 @@ class HalfCheetahConfigModule:
         #     return np.concatenate([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
         # else:
         #     return tf.concat([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
-        return pred
+        if isinstance(obs, np.ndarray):
+            return np.concatenate([pred[:, :1], obs + pred[:, 1:]], axis=1)
+        else:
+            return tf.concat([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
 
     @staticmethod
     def targ_proc(obs, next_obs):
-        # return np.concatenate([next_obs[:, :1], next_obs[:, 1:] - obs[:, 1:]], axis=1)
-        return next_obs
+        return np.concatenate([next_obs[:, :1], next_obs[:, 1:] - obs[:, 1:]], axis=1)
 
     @staticmethod
     def obs_cost_fn(obs):
-        # return -obs[:, 0]
-        return -obs[:, 3]
+        return -obs[:, 0]
 
     @staticmethod
     def ac_cost_fn(acs):
