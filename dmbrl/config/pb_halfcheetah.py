@@ -60,12 +60,12 @@ class HalfCheetahConfigModule:
         #     return np.concatenate([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
         # else:
         #     return tf.concat([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
-        return obs + pred
+        return pred
 
     @staticmethod
     def targ_proc(obs, next_obs):
         # return np.concatenate([next_obs[:, :1], next_obs[:, 1:] - obs[:, 1:]], axis=1)
-        return next_obs - obs
+        return next_obs
 
     @staticmethod
     def obs_cost_fn(obs):
