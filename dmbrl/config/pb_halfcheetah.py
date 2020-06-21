@@ -20,8 +20,8 @@ class HalfCheetahConfigModule:
     # PLAN_HOR = 30
     PLAN_HOR = 20
     # MODEL_IN, MODEL_OUT = 24, 18
-    MODEL_IN = 27 + 6
-    MODEL_OUT = 27
+    MODEL_IN = 26 + 6
+    MODEL_OUT = 26
     GP_NINDUCING_POINTS = 300
 
     def __init__(self):
@@ -56,25 +56,29 @@ class HalfCheetahConfigModule:
 
     @staticmethod
     def obs_postproc(obs, pred):
-        if isinstance(obs, np.ndarray):
-            return np.concatenate([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
-        else:
-            return tf.concat([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
+        # if isinstance(obs, np.ndarray):
+        #     return np.concatenate([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
+        # else:
+        #     return tf.concat([pred[:, :1], obs[:, 1:] + pred[:, 1:]], axis=1)
+        return obs + pred
 
     @staticmethod
     def targ_proc(obs, next_obs):
-        return np.concatenate([next_obs[:, :1], next_obs[:, 1:] - obs[:, 1:]], axis=1)
+        # return np.concatenate([next_obs[:, :1], next_obs[:, 1:] - obs[:, 1:]], axis=1)
+        return next_obs - obs
 
     @staticmethod
     def obs_cost_fn(obs):
-        return -obs[:, 0]
+        # return -obs[:, 0]
+        return -obs[:, 3]
 
     @staticmethod
     def ac_cost_fn(acs):
-        if isinstance(acs, np.ndarray):
-            return 0.01 * np.sum(np.square(acs), axis=1)
-        else:
-            return 0.01 * tf.reduce_sum(tf.square(acs), axis=1)
+        # if isinstance(acs, np.ndarray):
+        #     return 0.01 * np.sum(np.square(acs), axis=1)
+        # else:
+        #     return 0.01 * tf.reduce_sum(tf.square(acs), axis=1)
+        return 0
 
     def nn_constructor(self, model_init_cfg):
         model = get_required_argument(model_init_cfg, "model_class", "Must provide model class")(DotMap(
