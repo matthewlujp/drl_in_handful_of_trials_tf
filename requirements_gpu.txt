@@ -4,7 +4,7 @@ pytest
 gpflow==1.1.0
 numpy==1.19.0
 scipy==1.1.0
-tensorflow-gpu==1.9.0
+tensorflow-gpu==1.15.2
 # tensorflow==1.9.0
 
 gym==0.15.4
