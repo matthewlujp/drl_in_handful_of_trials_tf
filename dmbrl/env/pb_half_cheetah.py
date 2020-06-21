@@ -31,7 +31,7 @@ class HalfCheetahEnv(gym.Env):
         pos = self._env.robot_body.current_position()
         next_obs = np.concatenate([pos[:1] - self._prev_pos[:1], _next_obs])
 
-        reward_ctrl = -0.1 * np.square(action).sum()
+        reward_ctrl = -00.1 * np.square(action).sum()
         reward_run = next_obs[0]
         reward = reward_run + reward_ctrl
 

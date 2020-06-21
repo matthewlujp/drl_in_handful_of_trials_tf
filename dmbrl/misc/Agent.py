@@ -46,8 +46,9 @@ class Agent:
         Returns: (dict) A dictionary containing data from the rollout.
             The keys of the dictionary are 'obs', 'ac', and 'reward_sum'.
         """
-        video_record = record_fname is not None
-        # recorder = None if not video_record else VideoRecorder(self.env, record_fname)
+        # video_record = record_fname is not None
+        video_record = False
+        recorder = None if not video_record else VideoRecorder(self.env, record_fname)
 
         times, rewards = [], []
         O, A, reward_sum, done = [self.env.reset()], [], 0, False

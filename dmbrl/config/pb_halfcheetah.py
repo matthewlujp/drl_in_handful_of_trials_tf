@@ -17,7 +17,8 @@ class HalfCheetahConfigModule:
     TASK_HORIZON = 1000
     NTRAIN_ITERS = 300
     NROLLOUTS_PER_ITER = 1
-    PLAN_HOR = 30
+    # PLAN_HOR = 30
+    PLAN_HOR = 20
     # MODEL_IN, MODEL_OUT = 24, 18
     MODEL_IN = 27 + 6
     MODEL_OUT = 27
@@ -34,8 +35,12 @@ class HalfCheetahConfigModule:
                 "popsize": 2500
             },
             "CEM": {
-                "popsize": 500,
-                "num_elites": 50,
+                # "popsize": 500,
+                # "num_elites": 50,
+                # "max_iters": 5,
+                # "alpha": 0.1
+                "popsize": 100,
+                "num_elites": 10,
                 "max_iters": 5,
                 "alpha": 0.1
             }
@@ -67,9 +72,9 @@ class HalfCheetahConfigModule:
     @staticmethod
     def ac_cost_fn(acs):
         if isinstance(acs, np.ndarray):
-            return 0.1 * np.sum(np.square(acs), axis=1)
+            return 0.01 * np.sum(np.square(acs), axis=1)
         else:
-            return 0.1 * tf.reduce_sum(tf.square(acs), axis=1)
+            return 0.01 * tf.reduce_sum(tf.square(acs), axis=1)
 
     def nn_constructor(self, model_init_cfg):
         model = get_required_argument(model_init_cfg, "model_class", "Must provide model class")(DotMap(
