@@ -43,10 +43,11 @@ class HalfCheetahConfigModule:
 
     @staticmethod
     def obs_preproc(obs):
-        if isinstance(obs, np.ndarray):
-            return np.concatenate([obs[:, 1:2], np.sin(obs[:, 2:3]), np.cos(obs[:, 2:3]), obs[:, 3:]], axis=1)
-        else:
-            return tf.concat([obs[:, 1:2], tf.sin(obs[:, 2:3]), tf.cos(obs[:, 2:3]), obs[:, 3:]], axis=1)
+        # if isinstance(obs, np.ndarray):
+        #     return np.concatenate([obs[:, 1:2], np.sin(obs[:, 2:3]), np.cos(obs[:, 2:3]), obs[:, 3:]], axis=1)
+        # else:
+        #     return tf.concat([obs[:, 1:2], tf.sin(obs[:, 2:3]), tf.cos(obs[:, 2:3]), obs[:, 3:]], axis=1)
+        return obs
 
     @staticmethod
     def obs_postproc(obs, pred):
