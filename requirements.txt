@@ -4,7 +4,7 @@ pytest
 gpflow==1.1.0
 numpy==1.19.0
 scipy==1.1.0
-tensorflow==1.9.0
+tensorflow==2.3.1
 
 gym==0.15.4
 pybullet==2.7.2
