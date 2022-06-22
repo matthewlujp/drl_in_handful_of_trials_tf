@@ -2,7 +2,7 @@ dotmap==1.2.20
 future==0.16.0
 pytest
 gpflow==1.1.0
-numpy==1.19.0
+numpy==1.22.0
 scipy==1.1.0
 tensorflow-gpu==1.9.0
 # tensorflow==1.9.0
